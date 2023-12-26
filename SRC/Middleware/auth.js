@@ -13,7 +13,7 @@ export const auth = (accessRoles = []) => {
         if (decoded.exp < (new Date().getTime()/1000)) {
             return next(new Error("token has been expired"), { cause: 400 })
         }
-        const user = await userModel.findById(decoded.Id);
+        const user = await userModel.findById(decoded.id);
         if (!user)
             return next(new Error('Not Registered User', { cause: 400 }));
         if (!accessRoles.includes(user.role))

@@ -1,4 +1,4 @@
-export default roles = {
+export const roles = {
     Admin: "Admin",
     User: "User",
     Patient: "Patient",
