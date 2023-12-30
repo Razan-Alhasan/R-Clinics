@@ -17,7 +17,10 @@ const billingSchema = new Schema({
         type: Boolean,
         default: false
     },
-    usersId:{type: Types.ObjectId, ref: "User"},
+    createdBy: {type: Types.ObjectId, ref: "User"},
+    updatedBy: { type: Types.ObjectId, ref: "User" },
+    patientId:{type: Types.ObjectId, ref: "User", required: true},
+    doctorId:{type: Types.ObjectId, ref: "User", required: true},
     clinicId: { type: Types.ObjectId, ref: "Clinic" }
 }, {
     timestamps: true

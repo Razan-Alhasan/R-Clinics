@@ -1,0 +1,1 @@
+import prescriptionModel from "../../DB/Models/prescriptionModel.js";
