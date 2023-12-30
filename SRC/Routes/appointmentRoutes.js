@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router = Router();
-import * as appointmentsController from "../Controllers/appointmentController.js"
+import * as appointmentsController from "../Controllers/appointmentControllers.js"
 
 router.get('/', appointmentsController.getAppointments)
 router.get('/appointments/:id', appointmentsController.getAppointmentsByClinic)

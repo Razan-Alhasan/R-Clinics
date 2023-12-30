@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router = Router();
-import * as clinicController from "../Controllers/clinicController.js";
+import * as clinicController from "../Controllers/clinicControllers.js";
 import {auth} from "../Middleware/auth.js";
 import {endPoints} from "../Endpoints/clinicEndpoints.js";
 import {roles} from "../Middleware/roles.js";

@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router = Router();
-import * as billingControllers from "../Controllers/billingController.js"
+import * as billingControllers from "../Controllers/billingControllers.js"
 router.get('/', billingControllers.getBilling)
 router.get('/billing/:id', billingControllers.getBillingByClinic)
 router.get('/:id', billingControllers.getBillById)

@@ -1,6 +1,6 @@
 import { Router } from "express";
 const router = Router();
-import * as authController from "../Controllers/authController.js";
+import * as authController from "../Controllers/authControllers.js";
 import fileUpload, { fileValidation } from "../Utils/multer.js";
 router.post('/signUp', fileUpload(fileValidation.image).single("image"), authController.signUp)
 router.patch('/confirmEmail/:token', authController.confirmEmail)
