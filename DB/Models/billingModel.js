@@ -1,7 +1,7 @@
 import { Types, Schema, model, mongoose } from "mongoose";
 const billingSchema = new Schema({
     amount: {
-        type: String,
+        type: Number,
         required: true
     },
     status: {
@@ -21,7 +21,7 @@ const billingSchema = new Schema({
     updatedBy: { type: Types.ObjectId, ref: "User" },
     patientId:{type: Types.ObjectId, ref: "User", required: true},
     doctorId:{type: Types.ObjectId, ref: "User", required: true},
-    clinicId: { type: Types.ObjectId, ref: "Clinic" }
+    clinicId: { type: Types.ObjectId, ref: "Clinic", required: true},
 }, {
     timestamps: true
 });

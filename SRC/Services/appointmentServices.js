@@ -6,7 +6,7 @@ export const getAppointmentsByClinic = async (id) => {
     return await appointmentModel.find({ isDeleted: false, clinicId: id });
 };
 export const getActiveAppointments = async () => {
-    return await appointmentModel.find({ isDeleted: false, Status: "Active" });
+    return await appointmentModel.find({ isDeleted: false, status: "Active" });
 };
 export const createAppointment = async (data) => {
     return await appointmentModel.create(data);
@@ -21,11 +21,11 @@ export const getAppointmentsByPatient = async (id) => {
     return await appointmentModel.find({ isDeleted: false, patientId: id });
 };
 export const changeAppointmentStatus = async (id, updatedBy) => {
-    return await appointmentModel.findByIdAndUpdate(id, { Status: "InActive", updatedBy }, {new: true});
+    return await appointmentModel.findByIdAndUpdate(id, { status: "InActive", updatedBy }, {new: true});
 };
 export const softDeleteAppointment = async (id) => {
-    return await billingModel.findOneAndUpdate({ _id: id, isDeleted: false }, {isDeleted: true}, {new: true});
+    return await appointmentModel.findOneAndUpdate({ _id: id, isDeleted: false }, {isDeleted: true}, {new: true});
 }
 export const forceDeleteAppointment = async (id) => {
-    return await billingModel.findOneAndDelete({ _id: id, isDeleted: true});
+    return await appointmentModel.findOneAndDelete({ _id: id, isDeleted: true});
 }

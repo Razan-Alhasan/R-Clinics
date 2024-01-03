@@ -1,8 +1,7 @@
 import { Types, Schema, model, mongoose } from "mongoose";
 const appointmentSchema = new Schema({
     time: {
-        type: Date,
-        required: true
+        type: String,
     },
     status: {
         type: String,

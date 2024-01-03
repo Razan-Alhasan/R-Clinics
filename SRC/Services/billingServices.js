@@ -5,7 +5,7 @@ export const gitBilling = async () => {
 export const getBillingByClinic = async (id) => {
     return await billingModel.find({isDeleted: false, clinicId: id});
 }
-export const gitBillById = async (id) => {
+export const getBillById = async (id) => {
     return await billingModel.find({_id: id, isDeleted: false});
 }
 export const createBill = async (data) => {

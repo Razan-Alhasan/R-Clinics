@@ -2,29 +2,36 @@ import * as appointmentServices from "../Services/appointmentServices.js";
 import { asyncHandler } from "../Utils/errorHandling.js";
 export const getAppointments = asyncHandler( async (req, res, next) => {
     const appointments = await appointmentServices.getAppointments();
-    if (!appointments) {
+    if (appointments.length == 0) {
         return next(new Error("No appointments", {cause: 404}))
     }
-    return res.status(200).json({message: "success", appointments})
+    return res.status(200).json({message: "success", count: appointments.length, appointments})
 })
 export const getAppointmentsByClinic = asyncHandler( async (req, res, next) => {
     const {id} = req.params
     const appointments = await appointmentServices.getAppointments(id);
-    if (!appointments) {
-        return next(new Error("No appointments", {cause: 404}))
+    if (appointments.length == 0) {
+        return next(new Error("No appointments on this clinic", {cause: 404}))
     }
-    return res.status(200).json({message: "success", appointments})
+    return res.status(200).json({message: "success", count: appointments.length, appointments})
 })
 export const getActiveAppointments = asyncHandler( async (req, res, next) => {
     const appointments = await appointmentServices.getActiveAppointments();
-    if (!appointments) {
-        return next(new Error("No appointments", {cause: 404}))
+    if (appointments.length == 0) {
+        return next(new Error("No Active appointments", {cause: 404}))
     }
-    return res.status(200).json({message: "success", appointments})
+    return res.status(200).json({message: "success", count: appointments.length, appointments})
 })
 export const createAppointment = asyncHandler(async (req, res, next) => {
     const data = { ...req.body }
+    const time = data.date.split("T")[1];
+    const date = data.date.split("T")[0];
+    data.date = date
+    data.time = time
     data.createdBy = req.user._id;
+    if (new Date(date).getTime() < Date.now()) {
+        return next(new Error('add a valid day', {cause: 404}))
+    }
     const appointment = await appointmentServices.createAppointment(data);
     if (!appointment) {
         return next(new Error("error while creating appointment", { cause: 400 }))
@@ -42,22 +49,22 @@ export const getAppointmentById = asyncHandler(async (req, res, next) => {
 export const getAppointmentsByDoctor = asyncHandler( async (req, res, next) => {
     const {doctorId} = req.params
     const appointments = await appointmentServices.getAppointmentsByDoctor(doctorId);
-    if (!appointments) {
+    if (appointments.length == 0) {
         return next(new Error("No appointments", {cause: 404}))
     }
-    return res.status(200).json({message: "success", appointments})
+    return res.status(200).json({message: "success", count: appointments.length, appointments})
 })
 export const getAppointmentsByPatient = asyncHandler( async (req, res, next) => {
-    const {doctorId} = req.params
-    const appointments = await appointmentServices.getAppointmentsByDoctor(doctorId);
-    if (!appointments) {
+    const {patientId} = req.params
+    const appointments = await appointmentServices.getAppointmentsByPatient(patientId);
+    if (appointments.length == 0) {
         return next(new Error("No appointments", {cause: 404}))
     }
-    return res.status(200).json({message: "success", appointments})
+    return res.status(200).json({message: "success", count: appointments.length, appointments})
 })
 export const changeAppointmentStatus = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
-    updatedBy = req.user._id
+    let updatedBy = req.user._id
     const appointment = await appointmentServices.changeAppointmentStatus(id, updatedBy);
     if (!appointment) {
         return next(new Error('appointment not found', { cause: 404 }));
