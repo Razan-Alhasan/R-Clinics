@@ -1,4 +1,4 @@
-// import pdf from "pdf-creator-node"
+import pdf from "pdf-creator-node"
 import fs from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
