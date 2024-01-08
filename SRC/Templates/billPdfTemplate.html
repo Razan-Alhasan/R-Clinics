@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Bill</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            margin: 5px;
+            font-size: 20px;
+        }
+
+        header {
+            text-align: center;
+            background-color: #c77171;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 25px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #c77171;
+            padding: 8px;
+            text-align: center;
+
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #c77171;
+            color: #fff;
+        }
+        p {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to R Clinics</h1>
+        <p>We wish you good health</p>
+    </header>
+    <section>
+        <h2>Patient Information: </h2>
+        <p><strong>Name:</strong> {{bill.patientId.firstName}} {{bill.patientId.lastName}}</p>
+        <p><strong>Age:</strong> {{bill.patientId.age}}</p>
+        <p><strong>Phone:</strong> {{bill.patientId.phoneNumber}}</p>
+    </section>
+
+    <section>
+        <h2>Bill Details:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Services</th>
+                    <th>Clinic</th>
+                    <th>Doctor</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{bill.services}}</td>
+                    <td>{{bill.clinicId.name}}</td>
+                    <td>{{bill.doctorId.firstName}} {{bill.doctorId.lastName}}</td>
+                    <td>{{bill.amount}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <p><strong>Total Price: </strong> {{bill.amount}}</p>
+    </section>
+
+    <section>
+        <p><strong>Created By: </strong>{{bill.createdBy.firstName}} {{bill.createdBy.lastName}}</p>
+    </section>
+
+    <footer>
+        <p>Thank you for choosing R Clinics for your services. Have a good day...</p>
+    </footer>
+</body>
+</html>

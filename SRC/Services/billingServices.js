@@ -8,6 +8,31 @@ export const getBillingByClinic = async (id) => {
 export const getBillById = async (id) => {
     return await billingModel.find({_id: id, isDeleted: false});
 }
+export const printPdfBill = async (id) => {
+    return await billingModel.findOne({ _id: id, isDeleted: false, status: "NotPaid" })
+    .lean()
+    .populate([{
+        path: "patientId", 
+        model: "User", 
+        select: "firstName lastName DateOfBirth phoneNumber",
+    },
+    {
+        path: "clinicId", 
+        model: "Clinic", 
+        select: "name",
+    },
+    {
+        path: "createdBy", 
+        model: "User", 
+        select: "firstName lastName",
+    },
+    {
+        path: "doctorId", 
+        model: "User", 
+        select: "firstName lastName",
+    }])
+    .exec();
+}
 export const createBill = async (data) => {
     return await billingModel.create(data);
 }

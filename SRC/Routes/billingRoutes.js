@@ -6,6 +6,9 @@ import { endPoints } from "../Endpoints/billingEndpoints.js";
 router.get('/', auth(endPoints.getBilling), billingControllers.getBilling);
 router.get('/billing/:id', auth(endPoints.getBillingByClinic), billingControllers.getBillingByClinic)
 router.get('/:id', auth(endPoints.getBillById), billingControllers.getBillById)
+router.get('/printBill/:id',
+    // auth(endPoints.printPdfBill),
+    billingControllers.printPdfBill);
 router.post('/', auth(endPoints.createBill), billingControllers.createBill)
 router.patch('/:id', auth(endPoints.changeBillStatus), billingControllers.changeBillStatus)
 router.patch('/softDelete/:id', auth(endPoints.softDeleteBill), billingControllers.softDeleteBill);
