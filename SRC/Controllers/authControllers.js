@@ -18,7 +18,7 @@ export const signUp = asyncHandler( async (req, res, next) => {
     const user = await authServices.signUp(data);
     if (!user) return next(new Error('Invalid data', {cause:400}));
     const token = jwt.sign({email: data.email}, process.env.CONFIRM_EMAIL_SECRET)
-    const html = `<h1> Hello ${data.firstName} please click and <a href='${req.protocol}//${req.headers.host}/auth/confirmEmail/${token}'>CONFIRM YOUR EMAIL</a></h1>`
+    const html = `<h1> Hello ${data.firstName}</h1> <p> please click <a href='${req.protocol}//${req.headers.host}/auth/confirmEmail/${token}'>CONFIRM YOUR EMAIL</a> to confirm your email<p/>`
     await sendEmail(data.email, "Confirm Email", html)
     return res.status(201).json({ message: "success", user, token });
 });

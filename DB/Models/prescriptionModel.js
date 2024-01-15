@@ -17,11 +17,10 @@ const prescriptionSchema = new Schema({
         default: false
     },
     createdBy: {type: Types.ObjectId, ref: "User"},
-    updatedBy: { type: Types.ObjectId, ref: "User" },
+    updatedBy: { type: Types.ObjectId, ref: "User"},
     patientId:{type: Types.ObjectId, ref: "User", required: true},
-    doctorId:{type: Types.ObjectId, ref: "User", required: true},
-    appointmentId: { type: Types.ObjectId, ref: "Appointment" }, 
-    clinicId: { type: Types.ObjectId, ref: "Clinic" }
+    appointmentId: { type: Types.ObjectId, ref: "Appointment", required: true }, 
+    clinicId: { type: Types.ObjectId, ref: "Clinic", required: true }
 }, {
     timestamps: true
 });

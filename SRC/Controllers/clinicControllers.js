@@ -10,7 +10,7 @@ export const createClinic = asyncHandler( async (req, res, next) => {
     if (!clinic) {
         return next(new Error('error while creating clinic', {cause: 400}))
     }
-    return res.status(201).json({message: 'clinic created successfully'})
+    return res.status(201).json({message: 'clinic created successfully', clinic})
 })
 export const getClinicById = asyncHandler( async (req, res, next) =>{
     const { id } = req.params;

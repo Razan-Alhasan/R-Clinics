@@ -17,6 +17,22 @@ export const getBillingByClinic = asyncHandler( async (req, res, next) => {
     }
     return res.status(200).json({message:"success", count: billing.length, billing})
 })
+export const getBillingByPatient = asyncHandler( async (req, res, next) => {
+    const { id } = req.params;
+    const billing = await billingServices.getBillingByPatient(id);
+    if (billing.length == 0) {
+        return next(new Error('cant find billing', {cause: 404}))
+    }
+    return res.status(200).json({message:"success", count: billing.length, billing})
+})
+export const getNotPaidBillingByPatient = asyncHandler( async (req, res, next) => {
+    const { id } = req.params;
+    const billing = await billingServices.getNotPaidBillingByPatient(id);
+    if (billing.length == 0) {
+        return next(new Error('cant find billing', {cause: 404}))
+    }
+    return res.status(200).json({message:"success", count: billing.length, billing})
+})
 export const getBillById = asyncHandler( async (req, res, next) => {
     const { id } = req.params;
     const bill = await billingServices.getBillById(id);

@@ -4,7 +4,15 @@ import {isUser} from "../Services/authServices.js";
 import bcrypt from "bcryptjs";
 export const updateUser = asyncHandler( async (req, res, next) => {
     const id = req.user._id;
-    const updatedUser = await userServices.updateUser(id, req.body);
+    let data = {...req.body}
+    if (req.file) {
+        const { public_id, secure_url } = await cloudinary.uploader.upload(req.file.path, {
+            folder: `${process.env.APP_NAME}/${data.role}/${data.firstName}`
+        });
+        await cloudinary.uploader.upload.destroy(data.image.public_id);
+        data.image = { secure_url, public_id };
+    }
+    const updatedUser = await userServices.updateUser(id, data);
     if (!updatedUser) {
         return next(new Error('Couldnot update user, please try again',{cause: 400}))
     }
