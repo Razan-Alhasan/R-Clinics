@@ -14,13 +14,15 @@ export const getPrescriptionById = joi.object({
     id: generalFields.id
 })
 export const getAllPrescriptionByPatient = joi.object({
-    id: generalFields.id
+    id: generalFields.id,
+    limit: joi.number(),
+    page: joi.number()
 })
 export const updatePrescription = joi.object({
     id: generalFields.id,
-    instructions: joi.string().required(),
-    medications: joi.string().required(),
-    date: joi.date().required(),
+    instructions: joi.string(),
+    medications: joi.string(),
+    date: joi.date(),
     updatedBy: generalFields.id
 })
 export const softDeletePrescription = joi.object({

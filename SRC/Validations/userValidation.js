@@ -18,18 +18,23 @@ export const getUserById = joi.object({
     id: generalFields.id.required()
 })
 export const changePassword = joi.object({
-    id: generalFields.id.required(),
     email: generalFields.email,
     newPassword: generalFields.password
 })
 export const getDoctorsByClinic = joi.object({
-    clinicId: generalFields.id.required()
+    clinicId: generalFields.id.required(),
+    page: joi.number(),
+    limit: joi.number()
 })
 export const getPatientsByClinic = joi.object({
-    clinicId: generalFields.id.required()
+    clinicId: generalFields.id.required(),
+    page: joi.number(),
+    limit: joi.number()
 })
 export const getAllUsersByClinic = joi.object({
-    clinicId: generalFields.id.required()
+    clinicId: generalFields.id.required(),
+    page: joi.number(),
+    limit: joi.number()
 })
 export const softDeleteUser = joi.object({
     id: generalFields.id.required(),

@@ -30,9 +30,9 @@ export const getPrescriptionById = async (id) => {
     }])
     .exec();
 }
-export const getAllPrescription = async () => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
-    return await prescriptionModel.find({isDeleted: false}).skip(skip).limit(limit)        .populate([{
+export const getAllPrescription = async (data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
+    return await prescriptionModel.find({isDeleted: false}).skip(skip).limit(limit).populate([{
         path: "patientId", 
         model: "User", 
         select: "firstName lastName DateOfBirth phoneNumber",
@@ -58,9 +58,9 @@ export const getAllPrescription = async () => {
     }])
     .exec();
 }
-export const getAllPrescriptionByPatient = async (id) => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
-    return await prescriptionModel.find({patientId: id, isDeleted: false}).skip(skip).limit(limit)        .populate([{
+export const getAllPrescriptionByPatient = async (id, data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
+    return await prescriptionModel.find({patientId: id, isDeleted: false}).skip(skip).limit(limit).populate([{
         path: "patientId", 
         model: "User", 
         select: "firstName lastName DateOfBirth phoneNumber",

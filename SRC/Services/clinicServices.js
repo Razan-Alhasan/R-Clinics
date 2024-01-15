@@ -18,9 +18,9 @@ export const getClinicById = async (id) => {
             select: "firstName lastName",
         }]).exec();
 }
-export const getAllClinics = async () => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
-    return await clinicModel.find({ isDeleted: false }).skip(skip).limit(limit)        .populate([
+export const getAllClinics = async (data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
+    return await clinicModel.find({ isDeleted: false }).skip(skip).limit(limit).populate([
         {
             path: "createdBy", 
             model: "User", 

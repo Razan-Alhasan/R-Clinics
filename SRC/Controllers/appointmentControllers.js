@@ -1,7 +1,7 @@
 import * as appointmentServices from "../Services/appointmentServices.js";
 import { asyncHandler } from "../Utils/errorHandling.js";
 export const getAppointments = asyncHandler( async (req, res, next) => {
-    const appointments = await appointmentServices.getAppointments();
+    const appointments = await appointmentServices.getAppointments(req.query);
     if (appointments.length == 0) {
         return next(new Error("No appointments", {cause: 404}))
     }
@@ -9,14 +9,14 @@ export const getAppointments = asyncHandler( async (req, res, next) => {
 })
 export const getAppointmentsByClinic = asyncHandler( async (req, res, next) => {
     const {id} = req.params
-    const appointments = await appointmentServices.getAppointments(id);
+    const appointments = await appointmentServices.getAppointmentsByClinic(id, req.query);
     if (appointments.length == 0) {
         return next(new Error("No appointments on this clinic", {cause: 404}))
     }
     return res.status(200).json({message: "success", count: appointments.length, appointments})
 })
 export const getActiveAppointments = asyncHandler( async (req, res, next) => {
-    const appointments = await appointmentServices.getActiveAppointments();
+    const appointments = await appointmentServices.getActiveAppointments(req.query);
     if (appointments.length == 0) {
         return next(new Error("No Active appointments", {cause: 404}))
     }
@@ -48,7 +48,7 @@ export const getAppointmentById = asyncHandler(async (req, res, next) => {
 })
 export const getAppointmentsByDoctor = asyncHandler( async (req, res, next) => {
     const {doctorId} = req.params
-    const appointments = await appointmentServices.getAppointmentsByDoctor(doctorId);
+    const appointments = await appointmentServices.getAppointmentsByDoctor(doctorId, req.query);
     if (appointments.length == 0) {
         return next(new Error("No appointments", {cause: 404}))
     }
@@ -56,7 +56,7 @@ export const getAppointmentsByDoctor = asyncHandler( async (req, res, next) => {
 })
 export const getAppointmentsByPatient = asyncHandler( async (req, res, next) => {
     const {patientId} = req.params
-    const appointments = await appointmentServices.getAppointmentsByPatient(patientId);
+    const appointments = await appointmentServices.getAppointmentsByPatient(patientId, req.query);
     if (appointments.length == 0) {
         return next(new Error("No appointments", {cause: 404}))
     }

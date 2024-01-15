@@ -18,7 +18,7 @@ export const getPrescriptionById = asyncHandler(async (req, res, next) => {
     return res.status(201).json({ message: "success", prescription });
 })
 export const getAllPrescription = asyncHandler(async (req, res, next) => {
-    const prescriptions = await prescriptionServices.getAllPrescription();
+    const prescriptions = await prescriptionServices.getAllPrescription(req.query);
     if (prescriptions.length == 0) {
         return next(new Error("prescriptions not found", { cause: 404 }));
     }
@@ -26,7 +26,7 @@ export const getAllPrescription = asyncHandler(async (req, res, next) => {
 })
 export const getAllPrescriptionByPatient = asyncHandler(async (req, res, next) => {
     const { id } = req.params;
-    const prescriptions = await prescriptionServices.getAllPrescription(id);
+    const prescriptions = await prescriptionServices.getAllPrescriptionByPatient(id, req.query);
     if (prescriptions.length == 0) {
         return next(new Error("prescriptions not found", { cause: 404 }));
     }
@@ -40,7 +40,7 @@ export const updatePrescription = asyncHandler(async (req, res, next) => {
     if (!prescription) {
         return next(new Error("prescriptions not found", { cause: 404 }));
     }
-    return res.status(201).json({ message: "success", prescription });
+    return res.status(200).json({ message: "success", prescription });
 })
 export const softDeletePrescription = asyncHandler( async (req, res, next) => {
     const { id } = req.params;

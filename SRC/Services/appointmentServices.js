@@ -1,7 +1,7 @@
 import appointmentModel from "../../DB/Models/appointmentModel.js";
 import { pagination } from "../Utils/pagination.js";
-export const getAppointments = async () => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
+export const getAppointments = async (data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
     return await appointmentModel.find({ isDeleted: false }).skip(skip).limit(limit)
         .populate([{
             path: "patientId",
@@ -30,8 +30,9 @@ export const getAppointments = async () => {
         }])
         .exec();
 };
-export const getAppointmentsByClinic = async (id) => {
-    return await appointmentModel.find({ isDeleted: false, clinicId: id }).populate([{
+export const getAppointmentsByClinic = async (id, data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
+    return await appointmentModel.find({ isDeleted: false, clinicId: id }).skip(skip).limit(limit).populate([{
         path: "patientId",
         model: "User",
         select: "firstName lastName DateOfBirth phoneNumber",
@@ -58,8 +59,8 @@ export const getAppointmentsByClinic = async (id) => {
     }])
         .exec();
 };
-export const getActiveAppointments = async () => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
+export const getActiveAppointments = async (data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
     return await appointmentModel.find({ isDeleted: false, status: "Active" }).skip(skip).limit(limit)
         .populate([{
             path: "patientId",
@@ -119,8 +120,8 @@ export const getAppointmentById = async (id) => {
     }])
         .exec();
 };
-export const getAppointmentsByDoctor = async (id) => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
+export const getAppointmentsByDoctor = async (id, data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
     return await appointmentModel.find({ isDeleted: false, doctorId: id }).skip(skip).limit(limit)
         .populate([{
             path: "patientId",
@@ -149,8 +150,8 @@ export const getAppointmentsByDoctor = async (id) => {
         }])
         .exec();
 };
-export const getAppointmentsByPatient = async (id) => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
+export const getAppointmentsByPatient = async (id, data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
     return await appointmentModel.find({ isDeleted: false, patientId: id }).skip(skip).limit(limit)
         .populate([{
             path: "patientId",

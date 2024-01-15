@@ -3,7 +3,7 @@ import * as billingServices from "../Services/billingServices.js";
 import { createPdf } from "../Utils/pdf.js";
 import calculateAge from "../Utils/calculateAge.js";
 export const getBilling = asyncHandler( async (req, res, next) => {
-    const billing = await billingServices.gitBilling();
+    const billing = await billingServices.gitBilling(req.query);
     if (billing.length == 0) {
         return next(new Error('cant find billing', {cause: 404}))
     }
@@ -11,7 +11,7 @@ export const getBilling = asyncHandler( async (req, res, next) => {
 })
 export const getBillingByClinic = asyncHandler( async (req, res, next) => {
     const { id } = req.params;
-    const billing = await billingServices.getBillingByClinic(id);
+    const billing = await billingServices.getBillingByClinic(id, req.query);
     if (billing.length == 0) {
         return next(new Error('cant find billing', {cause: 404}))
     }
@@ -19,7 +19,7 @@ export const getBillingByClinic = asyncHandler( async (req, res, next) => {
 })
 export const getBillingByPatient = asyncHandler( async (req, res, next) => {
     const { id } = req.params;
-    const billing = await billingServices.getBillingByPatient(id);
+    const billing = await billingServices.getBillingByPatient(id, req.query);
     if (billing.length == 0) {
         return next(new Error('cant find billing', {cause: 404}))
     }
@@ -27,7 +27,7 @@ export const getBillingByPatient = asyncHandler( async (req, res, next) => {
 })
 export const getNotPaidBillingByPatient = asyncHandler( async (req, res, next) => {
     const { id } = req.params;
-    const billing = await billingServices.getNotPaidBillingByPatient(id);
+    const billing = await billingServices.getNotPaidBillingByPatient(id, req.query);
     if (billing.length == 0) {
         return next(new Error('cant find billing', {cause: 404}))
     }
@@ -48,7 +48,7 @@ export const createBill = asyncHandler( async (req, res, next) => {
     if (!bill) {
         return next(new Error('error while creating bill', {cause: 400}))
     }
-    return res.status(200).json({message:"success", bill})
+    return res.status(201).json({message:"success", bill})
 });
 export const printPdfBill = asyncHandler(async (req, res, next) => {
     const { id } = req.params;

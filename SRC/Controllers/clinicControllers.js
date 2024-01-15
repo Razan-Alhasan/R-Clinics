@@ -22,11 +22,11 @@ export const getClinicById = asyncHandler( async (req, res, next) =>{
     return res.status(200).json({message: 'clinic found successfully', clinic})
 })
 export const getAllClinics = asyncHandler( async (req, res, next) =>{
-    const clinics = await clinicServices.getAllClinics();
+    const clinics = await clinicServices.getAllClinics(req.query);
     if (!clinics) {
         return next(new Error('clinics not found', { cause: 404 }))
     }
-    return res.status(200).json({message: 'clinics found successfully', clinics})
+    return res.status(200).json({message: 'clinics found successfully', count: clinics.length, clinics})
 })
 export const updateClinic = asyncHandler(async (req, res, next) => {
     const { id } = req.params;

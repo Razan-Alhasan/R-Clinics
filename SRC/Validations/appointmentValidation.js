@@ -1,7 +1,9 @@
 import joi from 'joi';
 import { generalFields } from '../Middleware/validation.js';
 export const getAppointmentsByClinic = joi.object({
-    id: generalFields.id.required()
+    id: generalFields.id.required(),
+    limit: joi.number(),
+    page: joi.number()
 })
 export const createAppointment = joi.object({
     time: joi.date(),
@@ -17,10 +19,14 @@ export const getAppointmentById = joi.object({
     id: generalFields.id.required()
 })
 export const getAppointmentsByDoctor = joi.object({
-    doctorId: generalFields.id.required()
+    doctorId: generalFields.id.required(),
+    limit: joi.number(),
+    page: joi.number()
 })
 export const getAppointmentsByPatient = joi.object({
-    patientId: generalFields.id.required()
+    patientId: generalFields.id.required(),
+    limit: joi.number(),
+    page: joi.number()
 })
 export const changeAppointmentStatus = joi.object({
     id: generalFields.id.required(),

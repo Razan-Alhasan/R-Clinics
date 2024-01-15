@@ -19,54 +19,54 @@ export const getUserById = async (id) => {
             select: "name",
         }).exec();
 };
-export const getAllDoctors = async () => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
-    return await userModel.find({role: "Doctor", isDeleted: false}).skip(skip).limit(limit)        .select('firstName lastName role image').populate(
+export const getAllDoctors = async (data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
+    return await userModel.find({role: "Doctor", isDeleted: false}).skip(skip).limit(limit).select('firstName lastName role image').populate(
         {
             path: "clinicId", 
             model: "Clinic", 
             select: "name",
         }).exec();
 }
-export const getAllPatients = async () => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
-    return await userModel.find({role: "Patient", isDeleted: false}).skip(skip).limit(limit)        .select('firstName lastName role image').populate(
+export const getAllPatients = async (data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
+    return await userModel.find({role: "Patient", isDeleted: false}).skip(skip).limit(limit).select('firstName lastName role image').populate(
         {
             path: "clinicId", 
             model: "Clinic", 
             select: "name",
         }).exec();
 }
-export const getDoctorsByClinic = async (clinicId) => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
-    return await userModel.find({role: "Doctor", clinicId, isDeleted: false}).skip(skip).limit(limit)        .select('firstName lastName role image').populate(
+export const getDoctorsByClinic = async (clinicId, data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
+    return await userModel.find({ role: "Doctor", clinicId, isDeleted: false }).skip(skip).limit(limit).select('firstName lastName role image').populate(
         {
             path: "clinicId", 
             model: "Clinic", 
             select: "name",
         }).exec();
 }
-export const getPatientsByClinic = async (clinicId) => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
-    return await userModel.find({role: "Patient", clinicId, isDeleted: false}).skip(skip).limit(limit)        .select('firstName lastName role image').populate(
+export const getPatientsByClinic = async (clinicId, data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
+    return await userModel.find({role: "Patient", clinicId, isDeleted: false}).skip(skip).limit(limit).select('firstName lastName role image').populate(
         {
             path: "clinicId", 
             model: "Clinic", 
             select: "name",
         }).exec();
 }
-export const getAllUsers = async () => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
-    return await userModel.find({isDeleted: false}).skip(skip).limit(limit)        .select('firstName lastName role image').populate(
+export const getAllUsers = async (data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
+    return await userModel.find({isDeleted: false}).skip(skip).limit(limit).select('firstName lastName role image').populate(
         {
             path: "clinicId", 
             model: "Clinic", 
             select: "name",
         }).exec();
 }
-export const getAllUsersByClinic = async (clinicId) => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
-    return await userModel.find({clinicId, isDeleted: false}).skip(skip).limit(limit)        .select('firstName lastName role image').populate(
+export const getAllUsersByClinic = async (clinicId, data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
+    return await userModel.find({clinicId, isDeleted: false}).skip(skip).limit(limit).select('firstName lastName role image').populate(
         {
             path: "clinicId", 
             model: "Clinic", 

@@ -1,13 +1,19 @@
 import joi from 'joi';
 import { generalFields } from '../Middleware/validation.js';
 export const getBillingByClinic = joi.object({
-    id: generalFields.id.required()
+    id: generalFields.id.required(),
+    limit: joi.number(),
+    page: joi.number()
 })
 export const getBillingByPatient = joi.object({
-    id: generalFields.id.required()
+    id: generalFields.id.required(),
+    limit: joi.number(),
+    page: joi.number()
 })
 export const getNotPaidBillingByPatient = joi.object({
-    id: generalFields.id.required()
+    id: generalFields.id.required(),
+    limit: joi.number(),
+    page: joi.number()
 })
 export const createBill = joi.object({
     amount: joi.number().positive().required(),

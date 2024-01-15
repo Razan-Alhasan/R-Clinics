@@ -45,14 +45,14 @@ export const getUserById = asyncHandler( async (req, res, next) => {
     return res.status(200).json({ user });
 })
 export const getAllDoctors = asyncHandler(async (req, res, next) => {
-    const doctors = await userServices.getAllDoctors();
+    const doctors = await userServices.getAllDoctors(req.query);
     if (!doctors) {
         return next(new Error('doctors not found', {cause: 404}));
     }
     return res.status(200).json({message: "success", count: doctors.length, doctors})
 })
 export const getAllPatients = asyncHandler(async (req, res, next) => {
-    const patients = await userServices.getAllPatients();
+    const patients = await userServices.getAllPatients(req.query);
     if (!patients) {
         return next(new Error('patients not found', {cause: 404}));
     }
@@ -60,7 +60,7 @@ export const getAllPatients = asyncHandler(async (req, res, next) => {
 })
 export const getDoctorsByClinic = asyncHandler(async (req, res, next) => {
     const { clinicId } = req.params;
-    const doctors = await userServices.getAllDoctors(clinicId);
+    const doctors = await userServices.getDoctorsByClinic(clinicId, req.query);
     if (!doctors) {
         return next(new Error('doctors not found', {cause: 404}));
     }
@@ -68,14 +68,14 @@ export const getDoctorsByClinic = asyncHandler(async (req, res, next) => {
 })
 export const getPatientsByClinic = asyncHandler(async (req, res, next) => {
     const { clinicId } = req.params;
-    const patients = await userServices.getAllPatients(clinicId);
-    if (!patients.length) {
+    const patients = await userServices.getPatientsByClinic(clinicId, req.query);
+    if (!patients) {
         return next(new Error('patients not found', {cause: 404}));
     }
     return res.status(200).json({message: "success", count: patients.length, patients})
 })
 export const getAllUsers = asyncHandler(async (req, res, next) => {
-    const users = await userServices.getAllUsers();
+    const users = await userServices.getAllUsers(req.query);
     if (!users) {
         return next(new Error('users not found', {cause: 404}));
     }
@@ -83,7 +83,7 @@ export const getAllUsers = asyncHandler(async (req, res, next) => {
 })
 export const getAllUsersByClinic = asyncHandler(async (req, res, next) => {
     const { clinicId } = req.params;
-    const users = await userServices.getAllUsersByClinic(clinicId);
+    const users = await userServices.getAllUsersByClinic(clinicId, req.query);
     if (!users) {
         return next(new Error('users not found', {cause: 404}));
     }

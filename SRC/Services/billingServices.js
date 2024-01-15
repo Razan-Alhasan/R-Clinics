@@ -1,7 +1,7 @@
 import billingModel from "../../DB/Models/billingModel.js";
 import { pagination } from "../Utils/pagination.js";
-export const gitBilling = async () => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
+export const gitBilling = async (data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
     return await billingModel.find({isDeleted: false}).skip(skip).limit(limit)
         .populate([{
         path: "patientId", 
@@ -30,8 +30,8 @@ export const gitBilling = async () => {
     }])
     .exec();
 }
-export const getBillingByClinic = async (id) => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
+export const getBillingByClinic = async (id, data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
     return await billingModel.find({isDeleted: false, clinicId: id}).skip(skip).limit(limit)
         .populate([{
         path: "patientId", 
@@ -60,8 +60,8 @@ export const getBillingByClinic = async (id) => {
     }])
     .exec();
 }
-export const getBillingByPatient = async (id) => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
+export const getBillingByPatient = async (id, data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
     return await billingModel.find({isDeleted: false, patientId: id}).skip(skip).limit(limit)
         .populate([{
         path: "patientId", 
@@ -90,9 +90,9 @@ export const getBillingByPatient = async (id) => {
     }])
     .exec();
 }
-export const getNotPaidBillingByPatient = async (id) => {
-    const { skip, limit } = pagination(req.query.page, req.query.limit);
-    return await billingModel.find({isDeleted: false, patientId: id, status: "NotPaid"}).skip(skip).limit(limit)        .populate([{
+export const getNotPaidBillingByPatient = async (id, data) => {
+    const { skip, limit } = pagination(data.page, data.limit);
+    return await billingModel.find({isDeleted: false, patientId: id, status: "NotPaid"}).skip(skip).limit(limit).populate([{
         path: "patientId", 
         model: "User", 
         select: "firstName lastName DateOfBirth phoneNumber",
